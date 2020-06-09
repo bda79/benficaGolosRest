@@ -1,0 +1,15 @@
+{
+	"Hello": "Ola",
+	"hello": "ola",
+	"You have %s message": "Tens %s message",
+	"mid.admin.403": "Sem acesso.",
+	"mid.auth.401": "Sem acesso. Nenhum token fornecido",
+	"mid.auth.400": "Token inválido.",
+	"mid.error.500": "Alguma coisa falhou.",
+	"mid.error.400": "Não é uma imagem ou tamanho > 5MB.",
+	"mid.vobjid.400": "ID inválido.",
+	"mod.user.msg": "'Password' tem que ter no mínimo 5 caracteres no mínimo, 1 maiúsculos, 1 minúsculos and 1 número!",
+	"rout.auth.400": "Email ou password inválido.",
+	"rout.users.400": "Já existe um utilizador.",
+	"rout.users.404": "Utilizador não encontrado."
+}

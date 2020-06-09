@@ -1,0 +1,15 @@
+{
+	"Hello": "Hello",
+	"You have %s message": "You have %s message",
+	"hello": "hello",
+	"mid.admin.403": "Access denied.",
+	"mid.auth.401": "Access denied. No token provided",
+	"mid.auth.400": "Invalid token.",
+	"mid.error.500": "Something failed.",
+	"mid.error.400": "Image Only or image size > 5MB.",
+	"mid.vobjid.400": "Invalid ID.",
+	"mod.user.msg": "'Password' must have 5 characters, contain 1 uppercase, 1 lowercase and 1 digit!",
+	"rout.auth.400": "Invalid email or password.",
+	"rout.users.400": "User already registered.",
+	"rout.users.404": "User was not found."
+}

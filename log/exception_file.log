@@ -1,0 +1,113 @@
+2020-05-05 16:05:26 ERROR [index.js]: uncaughtException: Cannot find module 'express-async-errors'
+Require stack:
+- C:\ReactPrjs\BenficaGolos\startup\logging.js
+- C:\ReactPrjs\BenficaGolos\index.js
+Error: Cannot find module 'express-async-errors'
+Require stack:
+- C:\ReactPrjs\BenficaGolos\startup\logging.js
+- C:\ReactPrjs\BenficaGolos\index.js
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:982:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:864:27)
+    at Module.require (internal/modules/cjs/loader.js:1044:19)
+    at require (internal/modules/cjs/helpers.js:77:18)
+    at Object.<anonymous> (C:\ReactPrjs\BenficaGolos\startup\logging.js:2:1)
+    at Module._compile (internal/modules/cjs/loader.js:1158:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)
+    at Module.load (internal/modules/cjs/loader.js:1002:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:901:14)
+    at Module.require (internal/modules/cjs/loader.js:1044:19)
+    at require (internal/modules/cjs/helpers.js:77:18)
+    at Object.<anonymous> (C:\ReactPrjs\BenficaGolos\index.js:6:1)
+    at Module._compile (internal/modules/cjs/loader.js:1158:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)
+    at Module.load (internal/modules/cjs/loader.js:1002:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:901:14)
+2020-06-06 10:47:05 ERROR [index.js]: uncaughtException: Assignment to constant variable.
+TypeError: Assignment to constant variable.
+    at C:\ReactPrjs\BenficaGolos\models\payment.js:81:20
+    at C:\ReactPrjs\BenficaGolos\node_modules\mongoose\lib\model.js:4876:16
+    at C:\ReactPrjs\BenficaGolos\node_modules\mongoose\lib\model.js:4899:21
+    at C:\ReactPrjs\BenficaGolos\node_modules\mongoose\lib\helpers\promiseOrCallback.js:24:16
+    at C:\ReactPrjs\BenficaGolos\node_modules\mongoose\lib\aggregate.js:991:13
+    at C:\ReactPrjs\BenficaGolos\node_modules\kareem\index.js:135:16
+    at processTicksAndRejections (internal/process/task_queues.js:79:11)
+2020-06-06 10:49:34 ERROR [index.js]: uncaughtException: cb is not a function
+TypeError: cb is not a function
+    at C:\ReactPrjs\BenficaGolos\models\payment.js:82:13
+    at C:\ReactPrjs\BenficaGolos\node_modules\mongoose\lib\model.js:4876:16
+    at C:\ReactPrjs\BenficaGolos\node_modules\mongoose\lib\model.js:4899:21
+    at C:\ReactPrjs\BenficaGolos\node_modules\mongoose\lib\helpers\promiseOrCallback.js:24:16
+    at C:\ReactPrjs\BenficaGolos\node_modules\mongoose\lib\aggregate.js:991:13
+    at C:\ReactPrjs\BenficaGolos\node_modules\kareem\index.js:135:16
+    at processTicksAndRejections (internal/process/task_queues.js:79:11)
+2020-06-06 11:34:03 ERROR [index.js]: uncaughtException: Cannot access 't' before initialization
+ReferenceError: Cannot access 't' before initialization
+    at C:\ReactPrjs\BenficaGolos\routes\payments.js:21:11
+    at C:\ReactPrjs\BenficaGolos\models\payment.js:43:16
+    at C:\ReactPrjs\BenficaGolos\node_modules\mongoose\lib\model.js:4876:16
+    at C:\ReactPrjs\BenficaGolos\node_modules\mongoose\lib\model.js:4899:21
+    at C:\ReactPrjs\BenficaGolos\node_modules\mongoose\lib\helpers\promiseOrCallback.js:24:16
+    at C:\ReactPrjs\BenficaGolos\node_modules\mongoose\lib\aggregate.js:991:13
+    at C:\ReactPrjs\BenficaGolos\node_modules\kareem\index.js:135:16
+    at processTicksAndRejections (internal/process/task_queues.js:79:11)
+2020-06-06 13:43:50 ERROR [index.js]: uncaughtException: Cannot read property 'begin' of undefined
+TypeError: Cannot read property 'begin' of undefined
+    at getUserPayment (C:\ReactPrjs\BenficaGolos\routes\status.js:46:33)
+    at calculateStatus (C:\ReactPrjs\BenficaGolos\routes\status.js:26:27)
+    at C:\ReactPrjs\BenficaGolos\routes\status.js:14:30
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2020-06-06 13:44:54 ERROR [index.js]: uncaughtException: Cannot read property 'begin' of undefined
+TypeError: Cannot read property 'begin' of undefined
+    at getUserPayment (C:\ReactPrjs\BenficaGolos\routes\status.js:46:33)
+    at calculateStatus (C:\ReactPrjs\BenficaGolos\routes\status.js:26:27)
+    at C:\ReactPrjs\BenficaGolos\routes\status.js:14:30
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2020-06-06 13:46:19 ERROR [index.js]: uncaughtException: Cannot read property 'begin' of undefined
+TypeError: Cannot read property 'begin' of undefined
+    at getUserPayment (C:\ReactPrjs\BenficaGolos\routes\status.js:47:33)
+    at calculateStatus (C:\ReactPrjs\BenficaGolos\routes\status.js:27:27)
+    at C:\ReactPrjs\BenficaGolos\routes\status.js:15:30
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2020-06-06 13:46:57 ERROR [index.js]: uncaughtException: Cannot read property 'begin' of undefined
+TypeError: Cannot read property 'begin' of undefined
+    at getUserPayment (C:\ReactPrjs\BenficaGolos\routes\status.js:49:33)
+    at calculateStatus (C:\ReactPrjs\BenficaGolos\routes\status.js:29:27)
+    at C:\ReactPrjs\BenficaGolos\routes\status.js:17:30
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2020-06-06 13:47:49 ERROR [index.js]: uncaughtException: Cannot read property 'begin' of undefined
+TypeError: Cannot read property 'begin' of undefined
+    at getUserPayment (C:\ReactPrjs\BenficaGolos\routes\status.js:49:33)
+    at calculateStatus (C:\ReactPrjs\BenficaGolos\routes\status.js:29:27)
+    at C:\ReactPrjs\BenficaGolos\routes\status.js:17:30
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2020-06-06 13:48:40 ERROR [index.js]: uncaughtException: Cannot read property 'begin' of undefined
+TypeError: Cannot read property 'begin' of undefined
+    at getUserPayment (C:\ReactPrjs\BenficaGolos\routes\status.js:49:33)
+    at calculateStatus (C:\ReactPrjs\BenficaGolos\routes\status.js:29:27)
+    at C:\ReactPrjs\BenficaGolos\routes\status.js:17:30
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2020-06-06 13:49:22 ERROR [index.js]: uncaughtException: Cannot read property 'begin' of undefined
+TypeError: Cannot read property 'begin' of undefined
+    at getUserPayment (C:\ReactPrjs\BenficaGolos\routes\status.js:50:33)
+    at calculateStatus (C:\ReactPrjs\BenficaGolos\routes\status.js:30:27)
+    at C:\ReactPrjs\BenficaGolos\routes\status.js:18:30
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2020-06-06 13:50:09 ERROR [index.js]: uncaughtException: Cannot read property 'begin' of undefined
+TypeError: Cannot read property 'begin' of undefined
+    at getUserPayment (C:\ReactPrjs\BenficaGolos\routes\status.js:50:33)
+    at calculateStatus (C:\ReactPrjs\BenficaGolos\routes\status.js:30:27)
+    at C:\ReactPrjs\BenficaGolos\routes\status.js:18:30
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2020-06-06 14:16:47 ERROR [index.js]: uncaughtException: Mongoose 5.x disallows passing a spread of operators to `Model.aggregate()`. Instead of `Model.aggregate({ $match }, { $skip })`, do `Model.aggregate([{ $match }, { $skip }])`
+MongooseError: Mongoose 5.x disallows passing a spread of operators to `Model.aggregate()`. Instead of `Model.aggregate({ $match }, { $skip })`, do `Model.aggregate([{ $match }, { $skip }])`
+    at Function.aggregate (C:\ReactPrjs\BenficaGolos\node_modules\mongoose\lib\model.js:3949:11)
+    at Function.paymentSchema.statics.total (C:\ReactPrjs\BenficaGolos\models\payment.js:37:20)
+    at getUserPayment (C:\ReactPrjs\BenficaGolos\routes\status.js:52:20)
+    at calculateStatus (C:\ReactPrjs\BenficaGolos\routes\status.js:28:27)
+    at C:\ReactPrjs\BenficaGolos\routes\status.js:14:30
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2020-06-06 15:53:55 ERROR [index.js]: uncaughtException: users is not iterable
+TypeError: users is not iterable
+    at calculateStatus (C:\ReactPrjs\BenficaGolos\routes\status.js:40:23)
+    at C:\ReactPrjs\BenficaGolos\routes\status.js:29:30
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)

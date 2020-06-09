@@ -1,0 +1,5 @@
+{
+    "jwtPrivateKey": "BF_JWT_PRIVATE_KEY",
+    "db": "MONGOLAB_URI",
+    "port": "PORT"
+}
