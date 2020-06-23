@@ -1,5 +1,7 @@
 {
     "jwtPrivateKey": "BF_JWT_PRIVATE_KEY",
     "db": "MONGOLAB_URI",
-    "port": "PORT"
+    "port": "PORT",
+    "smtp_url":"SMTP_URL",
+    "app_url":"APP_URL"
 }

@@ -27,6 +27,11 @@ module.exports = function () {
     config_data.jwtPrivateKey = getEnvValue(config_data.jwtPrivateKey);
     config_data.port = getEnvValue(config_data.port);
     config_data.env = NODE_ENV;
+    config_data.smtp_url = getEnvValue(config_data.smtp_url);
+    config_data.smtp_service = getEnvValue(config_data.smtp_service);
+    config_data.smtp_user = getEnvValue(config_data.smtp_user);
+    config_data.smtp_password = getEnvValue(config_data.smtp_password);
+    config_data.app_url = getEnvValue(config_data.app_url);
 
     return config_data;
 

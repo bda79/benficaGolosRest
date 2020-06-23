@@ -2,7 +2,15 @@
 //const localeService = require('./service/localeService');
 const config = require('./middleware/env');
 const express = require('express');
+const cors = require('cors');
 const app = express();
+
+const corsOptions = {
+    origin: true,
+    credentials: true
+}
+
+app.options('*', cors(corsOptions));
 
 /*
 console.log(localeService.getLocales());
