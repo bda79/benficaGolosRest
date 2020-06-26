@@ -3,11 +3,13 @@ const validate = require('../middleware/validate');
 const admin = require('../middleware/admin');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
-const {User, validateUser} = require('../models/user');
+const {User, validateUser, validateUserNoPW} = require('../models/user');
 const express = require('express');
 const translate = require('../middleware/translate');
 const validateObjectId = require('../middleware/validateObjectId');
 const router = express.Router();
+
+const pwHashed = RegExp(/^\$2[ayb]\$.{56}$/);
 
 router.get('/me', auth, async (req, res) => {
     const user = await User.findById(req.user._id).select('-password');
@@ -17,7 +19,7 @@ router.get('/me', auth, async (req, res) => {
 });
 
 router.get('/', auth, async (req, res) => {
-    const users = await User.find().sort('name');
+    const users = await User.find().sort('name').select('-password');
     res.send(users);
 });
 
@@ -35,9 +37,10 @@ router.post('/', validate(validateUser), async (req, res) => {
     res.send(token);
 });
 
-router.put('/:id', [auth, validateObjectId, validate(validateUser)], async (req, res) => {
+router.put('/:id', [auth, validateObjectId], async (req, res) => {
     const options = await createOptions(req.body);
-
+    if (options && options.error) return res.status(404).send(options.error);
+    
     const user = await User.findByIdAndUpdate(req.params.id, 
         options, 
         {new: true});
@@ -55,8 +58,16 @@ router.delete('/:id', [auth, validateObjectId, admin], async (req, res) => {
     res.send(user);
 });
 
+router.get('/:id', [auth, validateObjectId], async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).send('The user with given ID was not found.');
+
+    res.send(user);
+});
+
 const createOptions = async (params) => {
     let options = {};
+    let noPW = false;
     Object.keys(params).map(async function(key) {
         console.log(key);
         if (key === 'name') {
@@ -66,13 +77,30 @@ const createOptions = async (params) => {
             options.email = params[key];
         }
         if (key === 'password') {
-            const salt = await bcrypt.genSalt(10);
-            options.password = await bcrypt.hash(params[key], salt);
+            if (pwHashed.test(params[key])) {
+                options.password = params[key];
+                noPW = true;
+            } 
+            else {
+                const salt = await bcrypt.genSalt(10);
+                options.password = await bcrypt.hash(params[key], salt);
+            }
         }
         if (key === 'isAdmin') {
             options.isAdmin = params[key];
         }
     });
+
+    if (noPW) {
+        const { error } = validateUserNoPW(options);
+        if (error)
+            options.error = error.details[0].message;
+    }
+    else {
+        const { error } = validateUser(options);
+        if (error)
+            options.error = error.details[0].message;
+    }
 
     return options;
 }

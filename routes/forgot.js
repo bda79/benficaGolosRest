@@ -26,8 +26,9 @@ router.put('/get', async (req, res) => {
     const emailData = {
         to: user.email,
         subject: "GolosBenfica Password reset",
-        text: `Please use the following link to reset your password: ${APP_URL}/reset/${token}`,
-        html: `<p>Please use the following link to reset your password.</p><p>${APP_URL}/forgot/reset/${token}</p>`
+        text: `Please use the following link to reset your password: ${APP_URL}/${token}`,
+        html: `<p>Please use the following link to reset your password.</p>
+        <p><a href="${APP_URL}/${token}">Reset Password</a></p>`
     };
 
     sendEmail(emailData)

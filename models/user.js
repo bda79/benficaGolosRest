@@ -57,5 +57,17 @@ function validateUser(user) {
     return Joi.validate(user, schema);
 }
 
+function validateUserNoPW(user) {
+    const schema = {
+        name: Joi.string().min(3).max(50).required(),
+        email: Joi.string().min(5).max(255).required().email(),
+        password: Joi.string().min(5).required(),
+        isAdmin: Joi.boolean()
+    };
+    
+    return Joi.validate(user, schema);
+}
+
+exports.validateUserNoPW = validateUserNoPW;
 exports.validateUser = validateUser;
 exports.User = User;
