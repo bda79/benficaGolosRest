@@ -43,6 +43,7 @@ router.post('/', validate(validateUser), async (req, res) => {
 
 router.put('/:id', [auth, validateObjectId], async (req, res) => {
     const options = await createOptions(req.body);
+   
     if (options && options.error) return res.status(404).send(options.error);
     
     const user = await User.findByIdAndUpdate(req.params.id, 
@@ -72,7 +73,7 @@ router.get('/:id', [auth, validateObjectId], async (req, res) => {
 const createOptions = async (params) => {
     let options = {};
     let noModifyPW = false;
-    Object.keys(params).map(async function(key) {
+    Object.keys(params).map( function(key) {
         if (key === 'name') {
             options.name = params[key];
         }
@@ -92,7 +93,7 @@ const createOptions = async (params) => {
             options.isAdmin = params[key];
         }
     });
-    console.log("opt", options);
+
     if (!noModifyPW) {
         const { error } = validateUser(options);
         if (error) {
@@ -100,18 +101,8 @@ const createOptions = async (params) => {
             return options;
         }
 
-        encrypt(options.password)
-        .then(data => {
-            if (data) {
-                options.password = data;
-                return options;
-            }
-        }).catch(err => {
-            console.log(err);
-            options.password = null;
-            return options;
-        });
-        
+        options.password = await encrypt(options.password);
+        return options;
     }
     else 
     {
