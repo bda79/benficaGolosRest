@@ -33,8 +33,12 @@ router.post('/', validate(validateUser), async (req, res) => {
     await user.save();
 
     const token = user.generateAuthToken();
+    const result = {
+        token: token,
+        user: user
+    }
     //res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email', 'isAdmin']));//lodash pick method, chose obj attribute and create new obj
-    res.send(token);
+    res.send(result);
 });
 
 router.put('/:id', [auth, validateObjectId], async (req, res) => {
@@ -67,9 +71,8 @@ router.get('/:id', [auth, validateObjectId], async (req, res) => {
 
 const createOptions = async (params) => {
     let options = {};
-    let noPW = false;
+    let noModifyPW = false;
     Object.keys(params).map(async function(key) {
-        console.log(key);
         if (key === 'name') {
             options.name = params[key];
         }
@@ -79,30 +82,50 @@ const createOptions = async (params) => {
         if (key === 'password') {
             if (pwHashed.test(params[key])) {
                 options.password = params[key];
-                noPW = true;
+                noModifyPW = true;
             } 
             else {
-                const salt = await bcrypt.genSalt(10);
-                options.password = await bcrypt.hash(params[key], salt);
+                options.password = params[key];
             }
         }
         if (key === 'isAdmin') {
             options.isAdmin = params[key];
         }
     });
+    console.log("opt", options);
+    if (!noModifyPW) {
+        const { error } = validateUser(options);
+        if (error) {
+            options.error = error.details[0].message;
+            return options;
+        }
 
-    if (noPW) {
+        encrypt(options.password)
+        .then(data => {
+            if (data) {
+                options.password = data;
+                return options;
+            }
+        }).catch(err => {
+            console.log(err);
+            options.password = null;
+            return options;
+        });
+        
+    }
+    else 
+    {
         const { error } = validateUserNoPW(options);
         if (error)
             options.error = error.details[0].message;
+        return options;
     }
-    else {
-        const { error } = validateUser(options);
-        if (error)
-            options.error = error.details[0].message;
-    }
+}
 
-    return options;
+const encrypt = async (password) => {
+    const salt = await bcrypt.genSalt(10);
+    const pw = await bcrypt.hash(password, salt);
+    return pw;
 }
 
 module.exports = router;
