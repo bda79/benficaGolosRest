@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = function(req, file, cb) {
-    const fileTypes = /jpeg|jpg|png|gif/;
+    const fileTypes = /jpeg|jpg|png|gif|svg/;
 
     const extName = fileTypes.test(
         path.extname(file.originalname).toLocaleLowerCase()
@@ -48,7 +48,6 @@ router.get('/', auth, async (req, res) => {
 });
 
 router.post('/', [auth, upload.single('logo'), validate(validateTeam)], async (req, res) => {
-
     if (!req.file) return res.status(404).send('Image not selected!');
 
     let team = await Team.lookup(req.body.sigla);
