@@ -63,7 +63,7 @@ router.post('/', [auth, upload.single('logo'), validate(validateTeam)], async (r
     res.send(team);
 });
 
-router.put('/:id', [auth, upload.single('logo'), validateObjectId, validate(validateTeam)], async (req, res) => {
+router.put('/:id', [auth, upload.single('logo'), validateObjectId], async (req, res) => {
 
     if (!req.file) return res.status(404).send('Image not selected!');
     
@@ -72,6 +72,19 @@ router.put('/:id', [auth, upload.single('logo'), validateObjectId, validate(vali
         name: req.body.name,
         sigla: req.body.sigla,
         logo: `uploads/${req.file.originalname}`
+    }, 
+    {new: true});
+
+    if (!team) return res.status(404).send('The team with given ID was not found.');
+
+    res.send(team);
+});
+
+router.put('/:id/noFile', [auth, validateObjectId], async (req, res) => {
+    const team = await Team.findByIdAndUpdate(req.params.id, 
+    {
+        name: req.body.name,
+        sigla: req.body.sigla
     }, 
     {new: true});
 

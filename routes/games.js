@@ -52,7 +52,7 @@ router.post('/', [auth, validate(validateGame)], async (req, res) => {
     res.send(game);
 });
 
-router.put('/:id', [auth, validateObjectId, validate(validateGame)], async (req, res) => {
+router.put('/:id', [auth, validateObjectId], async (req, res) => {
     const championship = await Championship.findById(req.body.championshipId);
     if (!championship) return res.status(400).send('Invalid championship.');
 

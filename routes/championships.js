@@ -22,7 +22,7 @@ router.post('/', [auth, validate(validateChampionship)], async (req, res) => {
     res.send(championship);
 });
 
-router.put('/:id', [auth, validateObjectId, validate(validateChampionship)], async (req, res) => {
+router.put('/:id', [auth, validateObjectId], async (req, res) => {
     const championship = await Championship.findByIdAndUpdate(req.params.id, {name: req.body.name}, {new: true});
 
     if (!championship) return res.status(404).send('The championship with given ID was not found.');
