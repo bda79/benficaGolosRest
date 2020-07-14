@@ -64,6 +64,7 @@ router.put('/:id', [auth, validateObjectId], async (req, res) => {
 
     let game = await Game.findByIdAndUpdate(req.params.id, {
         name: req.body.name,
+        date: req.body.date,
         championship: {
             _id: championship._id,
             name: championship.name

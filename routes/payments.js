@@ -31,7 +31,7 @@ router.post('/', [auth, validate(validatePayment)], async (req, res) => {
     res.send(payment);
 });
 
-router.put('/:id', [auth, validateObjectId, validate(validatePayment)], async (req, res) => {
+router.put('/:id', [auth, validateObjectId], async (req, res) => {
     const user = await User.findById(req.body.userId);
     if (!user) return res.status(400).send('Invalid User');
 

@@ -30,7 +30,7 @@ router.post('/', [auth, validate(validateSeason)], async (req, res) => {
     res.send(season);
 });
 
-router.put('/:id', [auth, validateObjectId, validate(validateSeason)], async (req, res) => {
+router.put('/:id', [auth, validateObjectId], async (req, res) => {
     let season = await Season.findByIdAndUpdate(req.params.id, {
         name: req.body.name,
         begin: req.body.begin,
@@ -52,6 +52,27 @@ router.put('/:id/addGame', [auth, validateObjectId], async (req, res) => {
     let season = await Season.findByIdAndUpdate(req.params.id,
     {
         $addToSet: { games: game._id }
+    }, 
+    {new: true});
+
+    if (!season) return res.status(404).send('The season with given ID was not found.');
+
+    await season.calculate();
+    await season.save();
+
+    season = await Season.show(season._id);
+
+    res.send(season);
+});
+
+router.put('/:id/deleteGame', [auth, validateObjectId], async (req, res) => {
+  
+    const game = await Game.findById(req.body.gameId);
+    if (!game) return res.status(404).send('The game with given ID was not found.');
+
+    let season = await Season.findByIdAndUpdate(req.params.id,
+    {
+        $pullAll: { games: [game._id] }
     }, 
     {new: true});
 
