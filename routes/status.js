@@ -13,8 +13,6 @@ router.get('/:id',[auth, validateObjectId], async (req, res) => {
         const users = await findUsers();
         const status = await calculateStatus(users, season);
 
-        console.log("Status", status);
-
         res.send(status);
 
     });
@@ -34,19 +32,58 @@ router.get('/:sid/user/:uid',[auth, validateObjectId], async (req, res) => {
             payment = pay[0].total;
         
         const status = returnStatus(user, payment, season);
-        console.log("Status", status);
         
         res.send(status);
     });
 
 });
 
+router.get('/list/:sid/user/:uid',[auth, validateObjectId], async (req, res) => {
+    getSeason(req.params.sid, async function(err, season) {
+        if (err) return res.status(404).send(err.message);
+        
+        const user = await findUsers(req.params.uid);
+        if (!user) return res.status(404).send('The User with given ID was not found!');
+
+        const result = await getListSeasonUser(season, user._id);
+        if (result && result.length > 0) {
+            const status = result.map((el) => {
+                const {_id, total} = el;
+                return {date: _id.yearMonthDay, total: total};
+            });
+
+           return res.send(status);
+        }
+        
+        res.send([]);
+    });
+
+});
+
+router.get('/list/:uid',[auth, validateObjectId], async (req, res) => {
+    const user = await findUsers(req.params.uid);
+    if (!user) return res.status(404).send('The User with given ID was not found!');
+
+    const result = await getListUser(user._id);
+    if (result && result.length > 0) {
+        const status = result.map((el) => {
+            const {_id, total} = el;
+            return {date: _id.yearMonthDay, total: total};
+        });
+
+        return res.send(status);
+    }
+    
+    res.send([]);
+});
+
 async function calculateStatus(users, season) {
     let result = [];
+   
     for(const user of users) {
         
         const pay = await getUserPayment(season, user._id);
-        
+
         let payment = 0;
         if (pay[0] && pay[0].total)
             payment = pay[0].total;
@@ -75,6 +112,14 @@ function returnStatus(user, pay, season) {
 
 function getUserPayment(season, userId) {
     return Payment.total(season.begin, season.end, userId);
+}
+
+function getListSeasonUser(season, userId) {
+    return Payment.list_Season_User(season.begin, season.end, userId);
+}
+
+function getListUser(userId) {
+    return Payment.list_User(userId);
 }
 
 async function getSeason(id, cb) {

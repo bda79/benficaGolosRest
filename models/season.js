@@ -54,6 +54,10 @@ seasonSchema.statics.lookup = function(name) {
     return this.findOne({ name: name });
 }
 
+seasonSchema.statics.current = function() {
+    return this.find().sort({begin: -1}).limit(1).select("_id");
+}
+
 seasonSchema.methods.calculate = async function() {
     const games = this.games;
     

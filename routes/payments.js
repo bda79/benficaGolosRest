@@ -27,7 +27,7 @@ router.post('/', [auth, validate(validatePayment)], async (req, res) => {
     });
 
     await payment.save();
-    payment = await payment.show();
+    payment = await Payment.show();
     res.send(payment);
 });
 
@@ -44,7 +44,7 @@ router.put('/:id', [auth, validateObjectId], async (req, res) => {
 
     if (!payment) return res.status(404).send('The payment with given ID was not found.');
 
-    payment = await Payment.show();
+    payment = await Payment.show(payment._id);
     res.send(payment);
 });
 
@@ -63,6 +63,5 @@ router.get('/:id', [auth, validateObjectId], async (req, res) => {
 
     res.send(payment);
 });
-
 
 module.exports = router;

@@ -14,6 +14,17 @@ router.get('/', auth, async (req, res) => {
     res.send(season);
 });
 
+router.get('/current', auth, async (req, res) => {
+    let season = await Season.current();
+    if (!season) return res.status(404).send('No Seasons!');
+
+    if (season.length) {
+       return res.send(season[0]);
+    }
+    
+    res.send(season);
+});
+
 router.post('/', [auth, validate(validateSeason)], async (req, res) => {
 
     let season = await Season.lookup(req.body.name);

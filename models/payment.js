@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const Schema = mongoose.Schema;
+const moment = require('moment');
 const Joi = require('joi');
 
 const pop = {
@@ -34,9 +35,42 @@ paymentSchema.statics.lookup = function(date, userId) {
 }
 
 paymentSchema.statics.total = function(begin, end, userId) {
+    const bDate = moment.utc(begin).toDate();
+    const eDate = moment.utc(end).toDate();
     return Payment.aggregate([
-        { "$match": { "date": { "$gte": begin, "$lte": end }, "user": ObjectId(userId) } },
-        { "$group": {"_id": null, "total": { "$sum": "$amount"} } }
+    { $match: { date: { $gte: bDate, $lte: eDate }, user: ObjectId(userId) } },
+        { $group: {_id: null, total: { $sum: "$amount"} } }
+    ]);
+}
+
+paymentSchema.statics.list_Season_User = function(begin, end, userId) {
+    const bDate = moment.utc(begin).toDate();
+    const eDate = moment.utc(end).toDate();
+    console.log(bDate, eDate)
+    return Payment.aggregate([
+        {$match: { date: { $gte: bDate, $lte: eDate }, user: ObjectId(userId) } },
+        {$project : {
+            yearMonthDay: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+            amount : 1
+        }},
+        {$group : {
+            _id : {yearMonthDay: "$yearMonthDay"},
+            total: {$sum : "$amount"}
+        }}
+    ]);
+}
+
+paymentSchema.statics.list_User = function(userId) {
+    return Payment.aggregate([
+        {$match: {user: ObjectId(userId)}},
+        {$project : {
+            yearMonthDay: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+            amount : 1
+        }},
+        {$group : {
+            _id : {yearMonthDay: "$yearMonthDay"},
+            total: {$sum : "$amount"}
+        }}
     ]);
 }
 
