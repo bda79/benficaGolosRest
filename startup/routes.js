@@ -16,6 +16,7 @@ module.exports = function(app) {
         next();
     });
     app.use(express.json());
+    app.use(express.static('public'));
     app.use('/uploads', express.static('uploads'));
     app.use('/api/auth', auth);
     app.use('/api/users', users);
