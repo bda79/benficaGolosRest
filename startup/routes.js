@@ -9,9 +9,11 @@ const payments = require('../routes/payments');
 const status = require('../routes/status');
 const error = require('../middleware/error');
 const forgot = require('../routes/forgot');
+const wakeup = require('../routes/wakeup');
 
 module.exports = function(app) {
     app.use((req, res, next) => {
+        console.log(req);
         res.header('Access-Control-Allow-Origin', '*');
         next();
     });
@@ -27,7 +29,7 @@ module.exports = function(app) {
     app.use('/api/payments', payments);
     app.use('/api/status', status);
     app.use('/api/forgot', forgot);
-    app.use('/api/wake-up', (_, res) => res.json({ status: 'Awake' }));
+    app.use('/api/wake-up', wakeup);
 
     app.use(error);
 }
