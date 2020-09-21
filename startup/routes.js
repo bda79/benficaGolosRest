@@ -27,6 +27,7 @@ module.exports = function(app) {
     app.use('/api/payments', payments);
     app.use('/api/status', status);
     app.use('/api/forgot', forgot);
+    app.use('/api/wake-up', (_, res) => res.json({ status: 'Awake' }));
 
     app.use(error);
 }
