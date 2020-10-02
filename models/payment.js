@@ -46,7 +46,6 @@ paymentSchema.statics.total = function(begin, end, userId) {
 paymentSchema.statics.list_Season_User = function(begin, end, userId) {
     const bDate = moment.utc(begin).toDate();
     const eDate = moment.utc(end).toDate();
-    console.log(bDate, eDate)
     return Payment.aggregate([
         {$match: { date: { $gte: bDate, $lte: eDate }, user: ObjectId(userId) } },
         {$project : {

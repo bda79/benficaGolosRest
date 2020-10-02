@@ -13,7 +13,6 @@ const wakeup = require('../routes/wakeup');
 
 module.exports = function(app) {
     app.use((req, res, next) => {
-        console.log(req);
         res.header('Access-Control-Allow-Origin', '*');
         next();
     });

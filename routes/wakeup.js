@@ -3,7 +3,6 @@ const router = express.Router();
 
 
 router.get('/', async (req, res) => {
-    console.log("call")
     res.send("awake");
 });
 
